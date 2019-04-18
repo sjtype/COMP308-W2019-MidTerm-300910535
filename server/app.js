@@ -1,9 +1,25 @@
-// moddules for node and express
+/*
+  File name: COMP308-W2019-Midterm-300910535
+  Author's name: Semy Jin
+  Student ID: 300910535
+  Web app name: Favourite Book List
+  Github repository link: https://github.com/sjtype/COMP308-W2019-MidTerm-300910535
+  Heroku link: https://comp308w2019-midterm-300910535.herokuapp.com/
+*/
+
+// modules for node and express
 let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
 let cookieParser = require('cookie-parser');
 let logger = require('morgan');
+
+// modules for authentication
+let passport = require("passport");
+let passportLocal = require("passport-local");
+let localStrategy = passportLocal.Strategy;
+let session = require("express-session");
+let flash = require("connect-flash");
 
 // import "mongoose" - required for DB Access
 let mongoose = require('mongoose');
@@ -36,6 +52,32 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../client')));
 
+// setup express-session
+app.use(
+  session({
+    secret: "secret",
+    saveUninitialized: false,
+    resave: false
+  })
+);
+
+// initialize flash
+app.use(flash());
+
+// initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// create user model
+let userModel = require("./models/users");
+let User = userModel.User;
+
+// implement user authentication strategy
+passport.use(User.createStrategy());
+
+// serialize and deserialize user info
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // route redirects
 app.use('/', index);
