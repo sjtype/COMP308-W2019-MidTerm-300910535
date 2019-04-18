@@ -1,0 +1,83 @@
+<%/*
+  File name: COMP308-W2019-Midterm-300910535
+  Author's name: Semy Jin
+  Student ID: 300910535
+  Web app name: Favourite Book List
+  Heroku link: https://comp308w2019-midterm-300910535.herokuapp.com/ 
+  */%>
+
+<% include ../partials/header.ejs %>
+
+<main class="container">
+  <% if (messages.length > 0) { %>
+    <div class="alert alert-danger">
+        <%= messages %>
+    </div>
+  <%} %>
+
+  <div class="row">
+    <div class="col-md-offset-4 col-md-4">
+      <h1>Please Register Below</h1>
+      <form method="POST">
+        <fieldset class="form-group">
+          <label for="username">Username: </label>
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            placeholder="Please enter username"
+            id="username"
+            required
+          />
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label for="password">Password: </label>
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            placeholder="Please enter password"
+            id="password"
+            required
+          />
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label for="email">Email: </label>
+          <input
+            type="email"
+            class="form-control"
+            name="email"
+            placeholder="Please enter email"
+            id="email"
+            required
+          />
+        </fieldset>
+
+        <fieldset class="form-group">
+          <label for="displayName">Display Name:</label>
+          <input
+            type="text"
+            class="form-control"
+            name="displayName"
+            placeholder="Please enter display name"
+            id="displayName"
+            required
+          />
+        </fieldset>
+
+        <fieldset class="form-group text-right">         
+          <button type="submit" class="btn btn-primary">
+            <i class="fa fa-check-square-o"></i> Register
+          </button>
+          <a href="/" class="btn btn-warning">
+            <i class="fa fa-undo"></i> Cancel
+          </a>
+        </fieldset>
+      </form>
+    </div>
+  </div>
+</main>
+
+<% include ../partials/footer.ejs %>
