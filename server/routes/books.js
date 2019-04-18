@@ -1,3 +1,11 @@
+/*
+  File name: COMP308-W2019-Midterm-300910535
+  Author's name: Semy Jin
+  Student ID: 300910535
+  Web app name: Favourite Book List
+  Heroku link: https://comp308w2019-midterm-300910535.herokuapp.com/
+*/
+
 // modules required for routing
 let express = require("express");
 let router = express.Router();
@@ -21,7 +29,7 @@ router.get("/", (req, res, next) => {
   });
 });
 
-//  GET the Book Details page in order to add a new Book
+//  GET - display Book Details page in order to add a new Book
 router.get("/add", (req, res, next) => {
   res.render("books/details", {
     title: "Add New Book",
@@ -29,7 +37,7 @@ router.get("/add", (req, res, next) => {
   });
 });
 
-// POST process the Book Details page and create a new Book - CREATE
+// POST - process the Book Details page and create a new Book - CREATE
 router.post("/add", (req, res, next) => {
   let newBook = book({
     Title: req.body.title,
@@ -50,7 +58,7 @@ router.post("/add", (req, res, next) => {
   });
 });
 
-// GET the Book Details page in order to edit an existing Book
+// GET - Book Details page in order to edit an existing Book
 router.get("/edit/:id", (req, res, next) => {
   let id = req.params.id;
 

@@ -1,3 +1,11 @@
+<%/*
+  File name: COMP308-W2019-Midterm-300910535
+  Author's name: Semy Jin
+  Student ID: 300910535
+  Web app name: Favourite Book List
+  Heroku link: https://comp308w2019-midterm-300910535.herokuapp.com/ 
+  */%>
+
 <% include ../partials/header.ejs %>
 
     <!-- MAIN CONTENT -->
@@ -31,12 +39,14 @@
                   <td class="text-center"><%= books[count].Author %></td>
                   <td class="text-center"><%= books[count].Genre %></td>
 
+                  <%/* Edit button */%>
                   <td class="text-center">
                     <a href="/books/edit/<%= books[count]._id %>" 
                       class="btn btn-warning"><i class="fa fa-pencil"></i> Edit
                     </a>
                   </td>
 
+                  <%/* Delete button */%>
                   <td class="text-center">
                     <a href="/books/delete/<%= books[count]._id %>" 
                       class="btn btn-danger"><i class="fa fa-trash"></i> Delete
