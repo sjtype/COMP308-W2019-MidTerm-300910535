@@ -15,8 +15,17 @@ let mongoose = require("mongoose");
 // define the book model
 let book = require("../models/books");
 
+// function for authentication
+function requireAuth(req, res, next) {
+  //check if the user is logged in
+  if (!req.isAuthenticated()) {
+    return res.redirect("./login");
+  }
+  next();
+}
+
 /* GET books List page. READ */
-router.get("/", (req, res, next) => {
+router.get("/", requireAuth, (req, res, next) => {
   // find all books in the books collection
   book.find((err, books) => {
     if (err) {
@@ -24,22 +33,24 @@ router.get("/", (req, res, next) => {
     } else {
       res.render("books/index", {
         title: "Books",
-        books: books
+        books: books,
+        displayName: req.user ? req.user.displayName : ""
       });
     }
   });
 });
 
 //  GET - display Book Details page in order to add a new Book
-router.get("/add", (req, res, next) => {
+router.get("/add", requireAuth, (req, res, next) => {
   res.render("books/details", {
     title: "Add New Book",
-    books: ""
+    books: "",
+    displayName: req.user ? req.user.displayName : ""
   });
 });
 
 // POST - process the Book Details page and create a new Book - CREATE
-router.post("/add", (req, res, next) => {
+router.post("/add", requireAuth, (req, res, next) => {
   let newBook = book({
     Title: req.body.title,
     Price: req.body.price,
@@ -60,7 +71,7 @@ router.post("/add", (req, res, next) => {
 });
 
 // GET - Book Details page in order to edit an existing Book
-router.get("/edit/:id", (req, res, next) => {
+router.get("/edit/:id", requireAuth, (req, res, next) => {
   let id = req.params.id;
 
   book.findById(id, (err, bookObject) => {
@@ -71,14 +82,15 @@ router.get("/edit/:id", (req, res, next) => {
       // show edit view
       res.render("books/details", {
         title: "Edit Book",
-        books: bookObject
+        books: bookObject,
+        displayName: req.user ? req.user.displayName : ""
       });
     }
   });
 });
 
 // POST - process the information passed from the details form and update the document
-router.post("/edit/:id", (req, res, next) => {
+router.post("/edit/:id", requireAuth, (req, res, next) => {
   let id = req.params.id;
 
   let updatedBook = book({
@@ -102,7 +114,7 @@ router.post("/edit/:id", (req, res, next) => {
 });
 
 // GET - process the delete by user id
-router.get("/delete/:id", (req, res, next) => {
+router.get("/delete/:id", requireAuth, (req, res, next) => {
   let id = req.params.id;
 
   book.remove({ _id: id }, err => {
