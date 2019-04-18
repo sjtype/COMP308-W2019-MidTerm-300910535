@@ -32,15 +32,15 @@
                   <td class="text-center"><%= books[count].Genre %></td>
 
                   <td class="text-center">
-                    <!-- ------------------------ -->
-                    <!-- ADD the EDIT BUTTON HERE -->
-                    <!-- ------------------------ -->
+                    <a href="/books/edit/<%= books[count]._id %>" 
+                      class="btn btn-warning"><i class="fa fa-pencil"></i> Edit
+                    </a>
                   </td>
 
                   <td class="text-center">
-                    <!-- ------------------------ -->
-                    <!-- ADD the DELETE BUTTON HERE -->
-                    <!-- ------------------------ -->
+                    <a href="/books/delete/<%= books[count]._id %>" 
+                      class="btn btn-danger"><i class="fa fa-trash"></i> Delete
+                    </a>
                   </td>
                 </tr>
                 <% } %>
