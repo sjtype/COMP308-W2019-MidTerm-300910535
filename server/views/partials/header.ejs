@@ -3,6 +3,7 @@
   Author's name: Semy Jin
   Student ID: 300910535
   Web app name: Favourite Book List
+  Github repository link: https://github.com/sjtype/COMP308-W2019-MidTerm-300910535
   Heroku link: https://comp308w2019-midterm-300910535.herokuapp.com/ 
   */%>
 
@@ -51,11 +52,13 @@
       <div class="collapse navbar-collapse navbar-ex1-collapse">
         <ul class="nav navbar-nav navbar-right">
         
+        <%/* Show display name */%>
         <% if(typeof displayName == 'string' && displayName) { %>
           <li class="navbar-text">
             <i class="fa fa-lg fa-user"></i> Welcome, <%= displayName %>
           </li>
 
+          <%/* Change active icon */%>
           <% if(title == "Home") { %>
           <li class="active">
             <a href="/"><i class="fa fa-home fa-lg"></i> Home</a>
@@ -76,14 +79,13 @@
           </li>
           <% } %> 
 
+          <%/* Login and logout icons */%>
           <li class="nav-item">
             <a href="/logout" class="nav-link"
               ><i class="fa fa-lg fa-sign-out"></i> Logout</a
             >
           </li>
-
           <% } else { %>
-
           <li class="nav-item">
             <a href="/login" class="nav-link"
               ><i class="fa fa-lg fa-sign-in"></i> Login</a
